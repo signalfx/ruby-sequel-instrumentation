@@ -156,5 +156,29 @@ RSpec.describe Sequel::Instrumentation do
       expect(tracer.spans.count).to eq 1
       expect(tracer.spans.last.tags).to eq tags
     end
+
+    it 'records error on span' do
+
+      people_dataset = db[:people]
+      error = nil
+      begin
+        puts people_dataset.count
+      rescue StandardError => e
+        error = e
+      end
+
+      expect(tracer.spans.count).to eq 1
+      expected_tags = {
+        "db.type" => "sqlite",
+        "db.statement" => "SELECT count(*) AS 'count' FROM `people` LIMIT 1",
+        "db.instance" => "people",
+        "component" => "ruby-sequel",
+        "span.kind" => "client",
+        "error" => true,
+        "sfx.error.kind" => "Sequel::DatabaseError",
+        "sfx.error.message" => "SQLite3::SQLException: no such table: people",
+        "sfx.error.stack": error.backtrace.join('\n')
+      }
+    end
   end
 end

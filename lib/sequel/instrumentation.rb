@@ -40,8 +40,7 @@ module Sequel
         yield
       rescue StandardError => error
         if scope
-          scope.span.set_tag('error', true)
-          scope.span.log_kv(key: 'message', value: error.message)
+          scope.span.record_exception(error)
         end
 
         raise error
