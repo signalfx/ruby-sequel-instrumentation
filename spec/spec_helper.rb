@@ -1,6 +1,6 @@
 require 'bundler/setup'
 require 'sequel/instrumentation'
-require 'opentracing_test_tracer'
+require 'signalfx_test_tracer'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
