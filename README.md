@@ -7,7 +7,7 @@ This gem provides OpenTracing instrumentation for [Sequel](https://github.com/je
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sequel-instrumentation'
+gem 'signalfx-sequel-instrumentation'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install sequel-instrumentation
+    $ gem install signalfx-sequel-instrumentation
 
 ## Usage
 
